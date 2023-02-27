@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/todos
+    username: ehyeon
+    password: ehyeon
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    show-sql: true
