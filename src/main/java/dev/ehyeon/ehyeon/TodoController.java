@@ -18,14 +18,12 @@ public class TodoController {
 
     @PostMapping
     public Todo createTodo(@RequestBody Todo todo) {
-        System.out.println(todo.getTitle());
-        System.out.println(todo.getDescription());
         return todoService.createTodo(todo);
     }
 
     @GetMapping("/{id}")
     public Todo getTodo(@PathVariable Long id) {
-        return todoService.getTodo(id);
+        return todoService.getTodoById(id);
     }
 
     @GetMapping("/all")
@@ -37,6 +35,7 @@ public class TodoController {
     public Todo updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
         return todoService.updateTodo(id, todo);
     }
+
 
     @PostMapping("/delete/{id}")
     public void deleteTodo(@PathVariable Long id) {

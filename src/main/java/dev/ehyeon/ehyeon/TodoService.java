@@ -14,9 +14,9 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    public Todo getTodo(long id) {
+    public Todo getTodoById(long id) {
         return todoRepository.findById(id)
-                .orElseThrow(() -> new NullPointerException("Todo not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Todo not found"));
     }
 
     public List<Todo> getAllTodos() {
@@ -25,9 +25,7 @@ public class TodoService {
 
     public Todo updateTodo(long id, Todo todo) {
         Todo existingTodo = todoRepository.findById(id)
-                .orElseThrow(() -> new NullPointerException("Todo not found"));
-
-        todoRepository.deleteById(id);
+                .orElseThrow(() -> new IllegalArgumentException("Todo not found"));
 
         existingTodo.setTitle(todo.getTitle());
         existingTodo.setDescription(todo.getDescription());

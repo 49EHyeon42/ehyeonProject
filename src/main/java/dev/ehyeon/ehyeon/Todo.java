@@ -1,13 +1,29 @@
 package dev.ehyeon.ehyeon;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Todo {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String title;
     private String description;
-    private boolean status;
+    @Column(nullable = false)
+    private boolean completed = false;
 
-    public Todo() {
+    private Todo() {
+    }
+
+    public Todo(String title) {
+        this.title = title;
+        this.description = "";
     }
 
     public Todo(String title, String description) {
@@ -17,10 +33,6 @@ public class Todo {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -40,10 +52,10 @@ public class Todo {
     }
 
     public boolean isCompleted() {
-        return status;
+        return completed;
     }
 
     public void setCompleted(boolean completed) {
-        status = completed;
+        this.completed = completed;
     }
 }
