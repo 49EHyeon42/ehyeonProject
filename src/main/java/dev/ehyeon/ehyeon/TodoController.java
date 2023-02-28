@@ -33,7 +33,7 @@ public class TodoController {
 
     @PostMapping("/update/{id}")
     public Todo updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
-        return todoService.updateTodo(id, todo);
+        return todoService.updateTodoById(id, todo);
     }
 
 

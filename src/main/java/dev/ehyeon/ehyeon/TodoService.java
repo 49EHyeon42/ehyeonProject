@@ -1,14 +1,16 @@
 package dev.ehyeon.ehyeon;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TodoService {
 
-    @Autowired
     private TodoRepository todoRepository;
+
+    public TodoService(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
+    }
 
     public Todo createTodo(Todo todo) {
         return todoRepository.save(todo);
@@ -23,7 +25,7 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public Todo updateTodo(long id, Todo todo) {
+    public Todo updateTodoById(long id, Todo todo) {
         Todo existingTodo = todoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Todo not found"));
 

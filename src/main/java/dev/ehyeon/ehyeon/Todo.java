@@ -21,6 +21,13 @@ public class Todo {
     private Todo() {
     }
 
+    // 테스트용
+    public Todo(long id, String title) {
+        this.id = id;
+        this.title = title;
+        this.description = "";
+    }
+
     public Todo(String title) {
         this.title = title;
         this.description = "";
