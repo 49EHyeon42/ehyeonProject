@@ -2,16 +2,19 @@ package dev.ehyeon.ehyeon;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 public class TodoService {
 
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
 
     public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
 
+    @Transactional
     public Todo createTodo(Todo todo) {
         return todoRepository.save(todo);
     }
@@ -25,6 +28,7 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
+    @Transactional
     public Todo updateTodoById(long id, Todo todo) {
         Todo existingTodo = todoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Todo not found"));
@@ -36,6 +40,7 @@ public class TodoService {
         return todoRepository.save(existingTodo);
     }
 
+    @Transactional
     public void deleteTodo(long id) {
         todoRepository.deleteById(id);
     }
