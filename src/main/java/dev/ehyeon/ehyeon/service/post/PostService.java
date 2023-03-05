@@ -2,9 +2,12 @@ package dev.ehyeon.ehyeon.service.post;
 
 import dev.ehyeon.ehyeon.domain.post.Post;
 import dev.ehyeon.ehyeon.domain.post.PostRepository;
+import dev.ehyeon.ehyeon.web.dto.PostListResponseDto;
 import dev.ehyeon.ehyeon.web.dto.PostResponseDto;
 import dev.ehyeon.ehyeon.web.dto.PostSaveRequestDto;
 import dev.ehyeon.ehyeon.web.dto.PostUpdateRequestDto;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,5 +39,19 @@ public class PostService {
                 () -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
 
         return new PostResponseDto(entity);
+    }
+
+    public List<PostListResponseDto> findAllDesc() {
+        return postRepository.findAllDesc().stream()
+                .map(PostListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
+
+        postRepository.delete(post);
     }
 }
